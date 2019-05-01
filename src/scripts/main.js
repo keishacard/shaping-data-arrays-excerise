@@ -115,16 +115,17 @@ const businesses = [
 
 
 //Call this function to write an array to the dom
+const outEl = document.querySelector("#output")
 domBuilder = (array, condition) => {
-    const outEl = document.querySelector("#output")
+    // const outEl = document.querySelector("#output")
     if (outEl.innerHTML !== "") {
         outEl.innerHTML = "";
     }
-    outEl.innerHTML = `<h1>${condition}</h1>`
+    outEl.innerHTML = `<h2>${condition}</h2>`
 
     array.forEach(business => {
         outEl.innerHTML += `
-    <h2>${business.companyName}</h2>
+    <h3>${business.companyName}</h3>
     <section>
       ${business.addressFullStreet}
     </section>
@@ -144,7 +145,24 @@ filterBusinessByManufacturing = (business) => {
 // printBusinessesToDom(businesses);
 
 //Filter for NY Businesses
-domBuilder(businesses.filter(filterBusinessesByState), "New York Businesses");
+// domBuilder(businesses.filter(filterBusinessesByState), "New York Businesses");
 
 //Filter for Manufacturing
 // domBuilder(businesses.filter(filterBusinessByManufacturing), "Manufacturing Businesses");
+
+outEl.innerHTML += "<h1>Purchasing Agents</h1>";
+
+/*
+    Using map(), you extract the purchasing agent object
+    from each business and store it in a new array
+*/
+const agents = businesses.map(business => {
+    return business.purchasingAgent
+})
+
+console.table(agents)
+
+agents.forEach(agent => {
+    outEl.innerHTML += `<h2>${agent.nameFirst} ${agent.nameLast}</h2>`;
+    outEl.innerHTML += "<hr/>";
+});
